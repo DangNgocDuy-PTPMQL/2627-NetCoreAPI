@@ -95,3 +95,4 @@ D:\2627-NetcoreAPI\DemoMVC\obj\Debug\net10.0\refint\DemoMVC.dll
 D:\2627-NetcoreAPI\DemoMVC\obj\Debug\net10.0\DemoMVC.pdb
 D:\2627-NetcoreAPI\DemoMVC\obj\Debug\net10.0\DemoMVC.genruntimeconfig.cache
 D:\2627-NetcoreAPI\DemoMVC\obj\Debug\net10.0\ref\DemoMVC.dll
+D:\2627-NetcoreAPI\DemoMVC\obj\Debug\net10.0\DemoMVC.sourcelink.json
