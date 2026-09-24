@@ -62,7 +62,19 @@
                             </span>
 
                         </div>
+<div class="mb-3">
+    <label asp-for="Quantity" class="form-label fw-bold">
+        Số lượng
+    </label>
 
+    <input asp-for="Quantity"
+           class="form-control"
+           placeholder="Nhập số lượng sản phẩm" />
+
+    <span asp-validation-for="Quantity"
+          class="text-danger">
+    </span>
+</div>
                         <div class="mb-4">
 
                             <label asp-for="Category"

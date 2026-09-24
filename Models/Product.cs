@@ -6,19 +6,21 @@ namespace DemoMVC.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Vui lòng nhập tên sản phẩm")]
-        [StringLength(100)]
-        [Display(Name = "Tên sản phẩm")]
-        public string Name { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Tên sản phẩm không được để trống")]
+        [StringLength(100, ErrorMessage = "Tên sản phẩm không được vượt quá 100 ký tự")]
+        public string Name { get; set; } = "";
 
-        [Required(ErrorMessage = "Vui lòng nhập giá")]
-        [Range(0, double.MaxValue, ErrorMessage = "Giá phải lớn hơn hoặc bằng 0")]
-        [Display(Name = "Giá")]
-        public decimal Price { get; set; }
+        [Required(ErrorMessage = "Giá sản phẩm không được để trống")]
+        [Range(1000, 100000000, ErrorMessage = "Giá phải từ 1.000 đến 100.000.000 VNĐ")]
+        public decimal? Price { get; set; }
 
-        [Required(ErrorMessage = "Vui lòng nhập danh mục")]
-        [StringLength(100)]
-        [Display(Name = "Danh mục")]
-        public string Category { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Số lượng không được để trống")]
+        [Range(1, 10000, ErrorMessage = "Số lượng phải từ 1 đến 10.000")]
+        public int? Quantity { get; set; }
+
+        [Required(ErrorMessage = "Danh mục không được để trống")]
+        [StringLength(100, ErrorMessage = "Danh mục không được vượt quá 100 ký tự")]
+        public string Category { get; set; } = "";
     }
 }
+
