@@ -1,6 +1,144 @@
-<h1>@ViewBag.Message</h1>
 
-<a asp-controller="Student"
-   asp-action="Create">
-    Nhập thông tin sinh viên
-</a>
+
+
+@model IEnumerable<DemoMVC.Models.Student>
+
+@{
+    ViewData["Title"] = "Quản lý sinh viên";
+}
+
+<div class="container py-5">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <h1 class="fw-bold mb-2">Quản lý sinh viên</h1>
+            <p class="text-secondary mb-0">
+                Quản lý hồ sơ và thông tin sinh viên
+            </p>
+        </div>
+
+        <a asp-controller="Student"
+           asp-action="Create"
+           class="btn btn-primary">
+            <i class="bi bi-person-plus me-1"></i> Thêm sinh viên
+        </a>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close"
+                    data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close"
+                    data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-header bg-white py-3">
+            <h2 class="h5 fw-bold mb-0">Danh sách sinh viên</h2>
+        </div>
+
+        <div class="card-body p-0">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-primary">
+                            <tr>
+                                <th class="px-3">STT</th>
+                                <th>Mã sinh viên</th>
+                                <th>Họ và tên</th>
+                                <th>Địa chỉ</th>
+                                <th>Trường đại học</th>
+                                <th>Khoa</th>
+                                <th class="text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int stt = 1;
+                            }
+
+                            @foreach (var student in Model)
+                            {
+                                <tr>
+                                    <td class="px-3">@(stt++)</td>
+                                    <td>
+                                        <span class="badge bg-light text-primary border">
+                                            @student.StudentCode
+                                        </span>
+                                    </td>
+                                    <td class="fw-semibold">@student.FullName</td>
+                                    <td>
+                                        @(string.IsNullOrWhiteSpace(student.Address)
+                                            ? "—" : student.Address)
+                                    </td>
+                                    <td>
+                                        @(string.IsNullOrWhiteSpace(student.University)
+                                            ? "—" : student.University)
+                                    </td>
+                                    <td>
+                                        @(student.Faculty?.Name ?? "Chưa có thông tin")
+                                    </td>
+                                    <td>
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <a asp-controller="Student"
+                                               asp-action="Edit"
+                                               asp-route-id="@student.Id"
+                                               class="btn btn-sm btn-warning">
+                                                Sửa
+                                            </a>
+
+                                            <form asp-controller="Student"
+                                                  asp-action="Delete"
+                                                  asp-route-id="@student.Id"
+                                                  method="post"
+                                                  onsubmit="return confirm('Bạn có chắc chắn muốn xóa sinh viên @student.FullName không?');">
+                                                @Html.AntiForgeryToken()
+
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-danger">
+                                                    Xóa
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-5">
+                    <h3 class="h5">Chưa có sinh viên nào</h3>
+                    <p class="text-secondary">
+                        Nhấn nút bên dưới để thêm sinh viên đầu tiên.
+                    </p>
+                    <a asp-controller="Student"
+                       asp-action="Create"
+                       class="btn btn-primary">
+                        Thêm sinh viên
+                    </a>
+                </div>
+            }
+        </div>
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="card-footer bg-white text-secondary">
+                Tổng số sinh viên: <strong>@Model.Count()</strong>
+            </div>
+        }
+    </div>
+</div>
+

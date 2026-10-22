@@ -1,29 +1,55 @@
+
 @model DemoMVC.Models.Student
 
-<h2>Thông tin sinh viên</h2>
+@{
+    ViewData["Title"] = "Thông tin sinh viên";
+}
 
-<table border="1" cellpadding="10">
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Thông tin sinh viên</h4>
+        </div>
 
-    <tr>
-        <th>Họ tên</th>
-        <td>@Model.FullName</td>
-    </tr>
+        <div class="card-body">
+            <div class="alert alert-success">
+                Thêm sinh viên thành công!
+            </div>
 
-    <tr>
-        <th>Địa chỉ</th>
-        <td>@Model.Address</td>
-    </tr>
+            <table class="table table-bordered">
+                <tr>
+                    <th style="width: 220px">Mã sinh viên</th>
+                    <td>@Model.StudentCode</td>
+                </tr>
+                <tr>
+                    <th>Họ và tên</th>
+                    <td>@Model.FullName</td>
+                </tr>
+                <tr>
+                    <th>Địa chỉ</th>
+                    <td>@Model.Address</td>
+                </tr>
+                <tr>
+                    <th>Trường đại học</th>
+                    <td>@Model.University</td>
+                </tr>
+                <tr>
+                    <th>Khoa </th>
+                    <td>@Model.Faculty?.Name</td>
+                </tr>
+            </table>
 
-    <tr>
-        <th>Trường đại học</th>
-        <td>@Model.University</td>
-    </tr>
+            <a asp-controller="Student"
+               asp-action="Create"
+               class="btn btn-primary">
+                Nhập sinh viên tiếp theo
+            </a>
 
-</table>
-
-<br />
-
-<a asp-controller="Student"
-   asp-action="Create">
-    Nhập lại
-</a>
+            <a asp-controller="Student"
+               asp-action="Index"
+               class="btn btn-secondary">
+                Danh sách sinh viên
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,40 +1,122 @@
+
+
 @model DemoMVC.Models.Student
 
-<h2>Nhập thông tin sinh viên</h2>
+@{
+    ViewData["Title"] = "Thêm sinh viên";
+}
 
-<form asp-controller="Student"
-      asp-action="Create"
-      method="post">
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Thêm sinh viên</h4>
+                </div>
 
-    <div>
-        <label>Họ tên:</label>
+                <div class="card-body">
+                    <form asp-controller="Student"
+                          asp-action="Create"
+                          method="post">
 
-        <input asp-for="FullName"
-               type="text" />
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="All"
+                             class="text-danger mb-3">
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="StudentCode"
+                                   class="form-label">
+                                Mã sinh viên
+                            </label>
+
+                            <input asp-for="StudentCode"
+                                   class="form-control"
+                                   readonly
+                                   placeholder="Hệ thống tự tạo mã" />
+
+                            <small class="text-muted">
+                                Mã sinh viên sẽ được tạo tự động khi lưu.
+                            </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="FullName" class="form-label">
+                                Họ và tên
+                            </label>
+
+                            <input asp-for="FullName"
+                                   class="form-control"
+                                   placeholder="Nhập họ và tên" />
+
+                            <span asp-validation-for="FullName"
+                                  class="text-danger">
+                            </span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Address" class="form-label">
+                                Địa chỉ
+                            </label>
+
+                            <input asp-for="Address"
+                                   class="form-control"
+                                   placeholder="Nhập địa chỉ" />
+
+                            <span asp-validation-for="Address"
+                                  class="text-danger">
+                            </span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="University" class="form-label">
+                                Trường đại học
+                            </label>
+
+                            <input asp-for="University"
+                                   class="form-control"
+                                   placeholder="Nhập tên trường" />
+
+                            <span asp-validation-for="University"
+                                  class="text-danger">
+                            </span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="FacultyId" class="form-label">
+                                Khoa
+                            </label>
+
+                            <select asp-for="FacultyId"
+                                    asp-items="ViewBag.Faculties"
+                                    class="form-select">
+                                <option value="">-- Chọn khoa --</option>
+                            </select>
+
+                            <span asp-validation-for="FacultyId"
+                                  class="text-danger">
+                            </span>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                Thêm sinh viên
+                            </button>
+
+                            <a asp-controller="Student"
+                               asp-action="Index"
+                               class="btn btn-secondary">
+                                Quay lại
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <br />
-
-    <div>
-        <label>Địa chỉ:</label>
-
-        <input asp-for="Address"
-               type="text" />
-    </div>
-
-    <br />
-
-    <div>
-        <label>Trường đại học:</label>
-
-        <input asp-for="University"
-               type="text" />
-    </div>
-
-    <br />
-
-    <button type="submit">
-        Gửi thông tin
-    </button>
-
-</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
